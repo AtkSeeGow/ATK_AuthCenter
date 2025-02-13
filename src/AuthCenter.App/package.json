@@ -29,7 +29,6 @@
     "@types/bootstrap": "^5.2.10",
     "@types/jquery": "^3.5.30",
     "agentkeepalive": "^4.5.0",
-    "angular-oauth2-oidc": "^18.0.0",
     "bootstrap": "^5.3.2",
     "concurrently": "^8.2.2",
     "jquery": "^3.7.1",

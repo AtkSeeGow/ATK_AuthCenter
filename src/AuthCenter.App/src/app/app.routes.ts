@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../injectable/auth-guard.injectable';
+import { Authorization } from '../injectable/authorization.injectable';
 
 export const routes: Routes = [
     {
         path: '',
-        canActivate: [AuthGuard],
+        canActivate: [Authorization],
         loadComponent: () => import('../pages/todo/todo.component').then((item) => item.TodoComponent),
     },
     {
@@ -13,22 +13,22 @@ export const routes: Routes = [
     },
     {
         path: 'Todo',
-        canActivate: [AuthGuard],
+        canActivate: [Authorization],
         loadComponent: () => import('../pages/todo/todo.component').then((item) => item.TodoComponent),
     },
     {
         path: 'TodoMore',
-        canActivate: [AuthGuard],
+        canActivate: [Authorization],
         loadComponent: () => import('../pages/todo-more/todo-more.component').then((item) => item.TodoMoreComponent),
     },
     {
         path: 'Form',
-        canActivate: [AuthGuard],
+        canActivate: [Authorization],
         loadComponent: () => import('../pages/form/form.component').then((item) => item.FormComponent),
     },
     {
         path: 'Query',
-        canActivate: [AuthGuard],
+        canActivate: [Authorization],
         loadComponent: () => import('../pages/query/query.component').then((item) => item.QueryComponent),
     },
     {

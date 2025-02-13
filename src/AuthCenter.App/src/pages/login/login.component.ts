@@ -25,20 +25,14 @@ export class LoginComponent implements AfterViewInit {
   }
 
   login() {
-    this.httpClient.post<Messages>(`./Api/Authentication/GenerateToken`,
-      this.loginModel,
-      {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      }).pipe(
-        map(messages => {
-          if (messages.isValid)
-            window.location.href = "./";
-          NotifyMessageComponent.popupBy(messages);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          NotifyMessageComponent.popupBy(error);
-          return throwError(() => new Error(''));
-        })
-      ).subscribe();
+    this.httpClient.post(`./connect/token`, {
+      client_id: 'accounting-system',
+      grant_type: 'password',
+      username: this.loginModel.account,
+      password: this.loginModel.password,
+      scope: 'openid profile api1'
+    }).subscribe(response => {
+      NotifyMessageComponent.popupBy(response);
+    });
   }
 }

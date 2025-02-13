@@ -21,5 +21,13 @@ module.exports = {
       "pathRewrite": {
          "^/api": ""
       }
+  },
+  "/connect/**": {
+      "target": "http://localhost:5199",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+         "^/connect": ""
+      }
   }
 };

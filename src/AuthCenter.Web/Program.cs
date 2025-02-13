@@ -5,6 +5,7 @@ builder.Services.AddIdentityServer()
     .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
     .AddInMemoryApiResources(IdentityConfig.ApiResources)
     .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
+    .AddDeveloperSigningCredential()
     .AddTestUsers(IdentityConfig.Users);
 
 builder.Services.AddControllers();
@@ -15,6 +16,6 @@ var app = builder.Build();
 
 app.UseIdentityServer();
 app.UseAuthorization();
-
+app.UseStatusCodePages();
 app.MapControllers();
 app.Run();
