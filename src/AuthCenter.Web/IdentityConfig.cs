@@ -5,21 +5,22 @@ public static class IdentityConfig
 {
     public static List<Client> Clients => new()
     {
-new Client
-{
-    ClientId = "accounting-system",
-    ClientSecrets = { new Secret("secret".Sha256()) }, // 
-    AllowedGrantTypes = GrantTypes.Code,  // 
+        new Client
+        {
+            ClientId = "accounting-system",
+            ClientSecrets = { new Secret("secret".Sha256()) }, // 
+            AllowedGrantTypes = GrantTypes.Code,  // 
 
-    RedirectUris = {
-        "http://localhost:5199/callback"
-    },
+            RedirectUris = {
+                "http://localhost:5199/callback",
+                "http://localhost:4200/callback"
+            },
 
-    AllowedScopes = { "openid", "profile", "api1" },
-    RequirePkce = false,
-    Enabled = true  // 
-}
-,
+            AllowedScopes = { "openid", "profile", "api1" },
+            RequirePkce = false,
+            Enabled = true  // 
+        }
+        ,
         new Client
         {
             ClientId = "angular-client",

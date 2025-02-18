@@ -1,0 +1,23 @@
+@model AuthCenter.Controllers.LoginInputModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登入</title>
+</head>
+<body>
+    <h2>請登入</h2>
+    <form method="post">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <div>
+            <label>帳號</label>
+            <input id="Username" name="Username" type="text" value="@Model.Username" />
+        </div>
+        <div>
+            <label>密碼</label>
+            <input id="Password" name="Password" type="password" value="@Model.Password" />
+        </div>
+        <button type="submit">登入</button>
+    </form>
+</body>
+</html>
