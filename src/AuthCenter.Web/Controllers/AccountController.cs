@@ -42,14 +42,13 @@ namespace AuthCenter.Controllers
                     new Claim(JwtClaimTypes.Name, model.Username)
                 };
 
-                var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                await HttpContext.SignInAsync("Cookies", claimsPrincipal);
+                var userIdentity = new ClaimsIdentity(claims, "password");
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
 
-                if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    return Redirect(model.ReturnUrl);
+                // 確保 Authentication Scheme 正確
+                await HttpContext.SignInAsync("Cookies", userPrincipal);
 
-                return Redirect("~/connect/authorize/callback");
+                return Redirect(model.ReturnUrl ?? "/");
             }
 
             ModelState.AddModelError("", "登入失敗，請確認帳號密碼");

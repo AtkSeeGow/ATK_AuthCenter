@@ -12,13 +12,13 @@ public static class IdentityConfig
             AllowedGrantTypes = GrantTypes.Code,  // 
 
             RedirectUris = {
-                "http://localhost:5199/callback",
                 "http://localhost:4200/callback"
             },
 
             AllowedScopes = { "openid", "profile", "api1" },
             RequirePkce = false,
-            Enabled = true  // 
+            Enabled = true,  // 
+            RequireClientSecret = false
         }
         ,
         new Client
@@ -50,7 +50,7 @@ public static class IdentityConfig
     {
         new TestUser
         {
-            SubjectId = "1",
+            SubjectId = "admin",
             Username = "admin",
             Password = "1234"
         }
