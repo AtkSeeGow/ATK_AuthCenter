@@ -1,28 +1,27 @@
+using AuthCenter.Service;
 using Duende.IdentityModel;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace AuthCenter.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IIdentityServerInteractionService _identityServerInteractionService;
-        private readonly IClientStore _clientStore;
-        private readonly IEventService _eventService;
+        private readonly IIdentityServerInteractionService identityServerInteractionService;
+        private readonly IClientStore clientStore;
+        private readonly IEventService eventService;
 
         public AccountController(
             IIdentityServerInteractionService identityServerInteractionService,
             IClientStore clientStore,
             IEventService eventService)
         {
-            _identityServerInteractionService = identityServerInteractionService;
-            _clientStore = clientStore;
-            _eventService = eventService;
+            this.identityServerInteractionService = identityServerInteractionService;
+            this.clientStore = clientStore;
+            this.eventService = eventService;
         }
 
         [HttpGet]
@@ -34,7 +33,10 @@ namespace AuthCenter.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginInputModel model)
         {
-            if (model.Username == "admin" && model.Password == "1234")
+            // TODO: 註冊時將使用者輸入的密碼用某種不可還原的方式加密，登入時將使用者輸入的密碼用相同的方式加密在比對？
+            if (UserService.Users.Any(item => 
+                item.Username == model.Username && 
+                item.Password == model.Password))
             {
                 var claims = new List<Claim>
                 {
@@ -60,12 +62,10 @@ namespace AuthCenter.Controllers
         {
             await HttpContext.SignOutAsync("Cookies");
 
-            var logoutRequest = await _identityServerInteractionService.GetLogoutContextAsync(logoutId);
+            var logoutRequest = await identityServerInteractionService.GetLogoutContextAsync(logoutId);
 
             if (!string.IsNullOrEmpty(logoutRequest.PostLogoutRedirectUri))
-            {
                 return Redirect(logoutRequest.PostLogoutRedirectUri);
-            }
 
             return RedirectToAction("Login");
         }

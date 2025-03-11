@@ -1,27 +1,37 @@
+using AuthCenter.Service;
 using Duende.IdentityServer.Configuration;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<ClientService>();
+builder.Services.AddSingleton<ApiScopeService>();
+builder.Services.AddSingleton<ApiResourceService>();
+builder.Services.AddSingleton<IdentityResourceService>();
+builder.Services.AddSingleton<UserService>();
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+var clientService = serviceProvider.GetRequiredService<ClientService>();
+var apiScopeService = serviceProvider.GetRequiredService<ApiScopeService>();
+var apiResourceService = serviceProvider.GetRequiredService<ApiResourceService>();
+var identityResourceService = serviceProvider.GetRequiredService<IdentityResourceService>();
+var userService = serviceProvider.GetRequiredService<UserService>();
+
 builder.Services.AddIdentityServer()
     .AddCorsPolicyService<CorsPolicyProvider>()
-    .AddInMemoryClients(IdentityConfig.Clients)
-    .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
-    .AddInMemoryApiResources(IdentityConfig.ApiResources)
-    .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
+    .AddInMemoryClients(clientService.Get())
+    .AddInMemoryApiScopes(apiScopeService.Get())
+    .AddInMemoryApiResources(apiResourceService.Get())
+    .AddInMemoryIdentityResources(identityResourceService.Get())
     .AddDeveloperSigningCredential()
-    .AddTestUsers(IdentityConfig.Users);
+    .AddTestUsers(UserService.Users);
 
 builder.Services.AddControllersWithViews();
 
-// 設定 Cookie 驗證
-builder.Services.AddAuthentication("Cookies")
-    .AddCookie("Cookies", options =>
-    {
-        options.Cookie.SameSite = SameSiteMode.Lax; // 允許 HTTP
-        options.Cookie.SecurePolicy = CookieSecurePolicy.None; // 禁用 Secure 限制
-    });
+builder.Services.AddAuthentication("Cookies").AddCookie("Cookies", options =>
+{
+    options.Cookie.SameSite = SameSiteMode.Lax; // 允許 HTTP
+    options.Cookie.SecurePolicy = CookieSecurePolicy.None; // 禁用 Secure 限制
+});
 
-// 配置 IdentityServer 選項
 builder.Services.Configure<IdentityServerOptions>(options =>
 {
     options.Authentication.CookieAuthenticationScheme = "Cookies";
@@ -29,7 +39,6 @@ builder.Services.Configure<IdentityServerOptions>(options =>
     options.UserInteraction.LogoutUrl = "/Account/Logout";
 });
 
-// 設定 CookiePolicyOptions 允許 HTTP
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.MinimumSameSitePolicy = SameSiteMode.Lax;
@@ -37,10 +46,9 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 var app = builder.Build();
 
-// Middleware 順序
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCookiePolicy(); // 確保 Cookie 設定生效
+app.UseCookiePolicy();
 app.UseIdentityServer();
 app.UseAuthorization();
 app.UseStatusCodePages();

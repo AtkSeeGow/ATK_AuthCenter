@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthCenter.Web", "AuthCenter.Web\AuthCenter.Web.csproj", "{A6A3E7E5-E21E-40B7-8A75-C4C441F61079}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthCenter.Web", "AuthCenter.Web\AuthCenter.Web.csproj", "{A6A3E7E5-E21E-40B7-8A75-C4C441F61079}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthCenter.Domain", "AuthCenter.Domain\AuthCenter.Domain.csproj", "{03C1BEA4-1BCC-41CD-B0E7-E33BE3B22C0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthCenter.Service", "AuthCenter.Service\AuthCenter.Service.csproj", "{2E7F9531-66B8-4E30-B2C5-B229217730AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthCenter.Repository", "AuthCenter.Repository\AuthCenter.Repository.csproj", "{9BC89F40-6DA2-438C-9E2C-FCFE69E6147E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{A6A3E7E5-E21E-40B7-8A75-C4C441F61079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6A3E7E5-E21E-40B7-8A75-C4C441F61079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6A3E7E5-E21E-40B7-8A75-C4C441F61079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C1BEA4-1BCC-41CD-B0E7-E33BE3B22C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C1BEA4-1BCC-41CD-B0E7-E33BE3B22C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C1BEA4-1BCC-41CD-B0E7-E33BE3B22C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C1BEA4-1BCC-41CD-B0E7-E33BE3B22C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E7F9531-66B8-4E30-B2C5-B229217730AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7F9531-66B8-4E30-B2C5-B229217730AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E7F9531-66B8-4E30-B2C5-B229217730AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E7F9531-66B8-4E30-B2C5-B229217730AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC89F40-6DA2-438C-9E2C-FCFE69E6147E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC89F40-6DA2-438C-9E2C-FCFE69E6147E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC89F40-6DA2-438C-9E2C-FCFE69E6147E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC89F40-6DA2-438C-9E2C-FCFE69E6147E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
