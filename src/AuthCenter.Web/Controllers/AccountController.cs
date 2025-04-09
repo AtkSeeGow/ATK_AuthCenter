@@ -1,3 +1,4 @@
+using AuthCenter.Domain;
 using AuthCenter.Service;
 using Duende.IdentityModel;
 using Duende.IdentityServer.Services;
@@ -27,21 +28,20 @@ namespace AuthCenter.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
-            return View(new LoginInputModel { ReturnUrl = returnUrl });
+            return View(new LoginInfo { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginInputModel model)
+        public async Task<IActionResult> Login(LoginInfo loginInfo)
         {
-            // TODO: 註冊時將使用者輸入的密碼用某種不可還原的方式加密，登入時將使用者輸入的密碼用相同的方式加密在比對？
-            if (UserService.Users.Any(item => 
-                item.Username == model.Username && 
-                item.Password == model.Password))
+            if (UserService.Users.Any(item =>
+                item.Username == loginInfo.Username &&
+                item.Password == loginInfo.Password))
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtClaimTypes.Subject, model.Username),
-                    new Claim(JwtClaimTypes.Name, model.Username)
+                    new Claim(JwtClaimTypes.Subject, loginInfo.Username),
+                    new Claim(JwtClaimTypes.Name, loginInfo.Username)
                 };
 
                 var userIdentity = new ClaimsIdentity(claims, "password");
@@ -50,11 +50,11 @@ namespace AuthCenter.Controllers
                 // 確保 Authentication Scheme 正確
                 await HttpContext.SignInAsync("Cookies", userPrincipal);
 
-                return Redirect(model.ReturnUrl ?? "/");
+                return Redirect(loginInfo.ReturnUrl ?? "/");
             }
 
-            ModelState.AddModelError("", "登入失敗，請確認帳號密碼");
-            return View(model);
+            loginInfo.Message = "登入失敗，請確認帳號密碼";
+            return View(loginInfo);
         }
 
         [HttpGet]
@@ -69,12 +69,5 @@ namespace AuthCenter.Controllers
 
             return RedirectToAction("Login");
         }
-    }
-
-    public class LoginInputModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string ReturnUrl { get; set; }
     }
 }

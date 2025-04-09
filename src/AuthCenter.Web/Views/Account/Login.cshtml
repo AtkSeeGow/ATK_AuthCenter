@@ -1,23 +1,25 @@
-@model AuthCenter.Controllers.LoginInputModel
+@model AuthCenter.Domain.LoginInfo
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>登入</title>
-</head>
-<body>
-    <h2>請登入</h2>
-    <form method="post">
-        <input type="hidden" asp-for="ReturnUrl" />
-        <div>
-            <label>帳號</label>
-            <input id="Username" name="Username" type="text" value="@Model.Username" />
-        </div>
-        <div>
-            <label>密碼</label>
-            <input id="Password" name="Password" type="password" value="@Model.Password" />
-        </div>
-        <button type="submit">登入</button>
-    </form>
-</body>
-</html>
+@{
+    Layout = "_Layout";
+}
+
+<div class="login-wrapper">
+    <div class="login-box">
+        <h1 class="title">登入資訊</h1>
+        <form id="login-form" method="post">
+            <label for="username">帳號</label>
+            <input id="username" name="username" type="text" required value="@Model.Username" />
+
+            <label for="password">密碼</label>
+            <input id="password" name="password" type="password" required value="@Model.Password" />
+
+            <div id="error-msg" class="error-msg">@Model.Message</div>
+
+            <button type="submit" id="login-btn">
+                <span class="btn-text">送出</span>
+                <span class="spinner"></span>
+            </button>
+        </form>
+    </div>
+</div>

@@ -14,7 +14,7 @@ namespace AuthCenter.Service
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris = {
-                        "http://localhost:4200/callback"
+                        "http://localhost:4200/Callback"
                     },
                     AllowedScopes = { "openid", "profile", "api1" },
                     RequirePkce = false,
