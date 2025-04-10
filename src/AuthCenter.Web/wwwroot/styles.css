@@ -9,7 +9,7 @@
     margin: 0;
     padding: 0;
     font-family: 'font', monospace;
-    font-size: 32px;
+    font-size: 4vw;
 }
 
 body {
@@ -23,23 +23,38 @@ body {
 
 .login-wrapper {
     padding: 20px;
-    width: 100%;
+    width: 80%;
 }
 
 .login-box {
-    background: #2b2b2b;
-    border: 4px solid #888;
+    position: relative;
     padding: 32px;
-    box-shadow: 8px 8px 0 #000;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    overflow: visible;
+    border-radius: 16px;
+    background: #2b2b2b;
+    background-color: rgba(43, 43, 43, 1);
 }
+
+    .login-box::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: linear-gradient( 45deg, red, orange, yellow, lime, cyan, blue, violet, red );
+        background-size: 400%;
+        animation: rgbFlow 15s linear infinite;
+        filter: blur(20px); 
+        z-index: -1;
+        border-radius: 12px;
+    }
 
 .title {
     text-align: center;
-    color: #fff;
     font-weight: normal;
+    text-shadow: 0 0 3vw #F4BD0A;
+    animation: neonYellow 5s ease-in-out infinite;
 }
 
 form {
@@ -49,7 +64,8 @@ form {
 }
 
 label {
-    color: #ccc;
+    text-shadow: 0 0 3vw #F4BD0A;
+    animation: neonYellow 5s ease-in-out infinite;
 }
 
 input {
@@ -58,6 +74,9 @@ input {
     background: #1a1a1a;
     color: #fff;
     outline: none;
+    border-radius: 16px;
+    text-shadow: 0 0 3vw #179E05;
+    animation: neonGreen 5s linear infinite;
 }
 
 button {
@@ -72,37 +91,74 @@ button {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    border-radius: 16px;
+    text-shadow: 0 0 3vw #d0d0d0;
+    animation: neonWhite 5s ease-in-out infinite;
 }
 
-    button:hover {
-        background: #333;
+.message {
+    color: #d59e9e;
+    animation: neonRed 5s ease-in-out infinite;
+}
+
+@keyframes rgbFlow {
+    0% {
+        background-position: 0% 50%;
     }
 
-    button .spinner {
-        display: none;
-        width: 36px;
-        height: 36px;
-        border: 2px solid #fff;
-        border-top: 2px solid transparent;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+    50% {
+        background-position: 100% 50%;
     }
 
-    button.loading .btn-text {
-        display: none;
-    }
-
-    button.loading .spinner {
-        display: inline-block;
-    }
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+    100% {
+        background-position: 0% 50%;
     }
 }
 
-.error-msg {
-    color: #ff6666;
-    min-height: 18px;
+@keyframes neonWhite {
+    0%, 100% {
+        text-shadow: 0 0 1vw #FFFFFF, 0 0 3vw #FFFFFF, 0 0 10vw #FFFFFF, 0 0 10vw #FFFFFF, 0 0 .4vw #E0E0E0, .5vw .5vw .1vw #BEBEBE;
+        color: #FFFFFF;
+    }
+
+    50% {
+        text-shadow: 0 0 .5vw #CCCCCC, 0 0 1.5vw #CCCCCC, 0 0 5vw #CCCCCC, 0 0 5vw #CCCCCC, 0 0 .2vw #A9A9A9, .5vw .5vw .1vw #808080;
+        color: #F5F5F5;
+    }
+}
+
+@keyframes neonYellow {
+    0%, 100% {
+        text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+        color: #FFFC00;
+    }
+
+    50% {
+        text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+        color: #806914;
+    }
+}
+
+@keyframes neonRed {
+    0%, 100% {
+        text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FF8480, .5vw .5vw .1vw #330101;
+        color: #FF3E3E;
+    }
+
+    50% {
+        text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #662C2A, .5vw .5vw .1vw #1A0000;
+        color: #800D0D;
+    }
+}
+
+@keyframes neonGreen {
+    0%, 100% {
+        text-shadow: 0 0 1vw #10ff4c, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+        color: #03C03C;
+    }
+
+    50% {
+        text-shadow: 0 0 .5vw #024218, 0 0 1.5vw #024713, 0 0 5vw #023812, 0 0 5vw #012707, 0 0 .2vw #022201, .5vw .5vw .1vw #011a06;
+        color: #179E05;
+    }
 }

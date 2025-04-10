@@ -14,11 +14,10 @@
             <label for="password">密碼</label>
             <input id="password" name="password" type="password" required value="@Model.Password" />
 
-            <div id="error-msg" class="error-msg">@Model.Message</div>
+            <div id="message" class="message">@Model.Message</div>
 
             <button type="submit" id="login-btn">
                 <span class="btn-text">送出</span>
-                <span class="spinner"></span>
             </button>
         </form>
     </div>
